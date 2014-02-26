@@ -8,7 +8,7 @@ module Architectures
     def rules
       {
         :index => lambda {true},
-        :all => lambda {true}
+        :plugin => lambda {true}
       }
     end
 
@@ -16,7 +16,7 @@ module Architectures
       render 'bastion/layouts/application', :layout => false
     end
 
-    def all
+    def plugin
       #redirect_to :action => 'index', :anchor => '/architectures'
       render 'bastion/layouts/application', :layout => false, :anchor => '/architectures'
     end

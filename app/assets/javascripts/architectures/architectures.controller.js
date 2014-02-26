@@ -48,7 +48,7 @@ angular.module('Architectures.architectures').controller('ArchitecturesControlle
         };
 
         $scope.formatNamesList = function (namesList) {
-            return "TODO: operating system names";
+            return _.pluck(namesList, 'name').join(",");
         };
 
     }]
