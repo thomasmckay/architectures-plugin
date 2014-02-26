@@ -1,0 +1,20 @@
+<table class="table table-striped" ng-class="{'table-mask': table.working}">
+  <thead>
+    <tr alch-table-head row-select>
+      <th alch-table-column="name" sortable>{{ "Name" | translate }}</th>
+      <th alch-table-column="limit" sortable>{{ "Operating Systems" | translate }}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr alch-table-row ng-repeat="architecture in table.rows" row-select="architecture">
+      <td alch-table-cell>
+        <a ui-sref="architectures.details.info({architectureId: architecture.id})">
+          {{ architecture.name }}
+        </a>
+        <i class="icon-chevron-right selected-icon" ng-show="architecture.selected"></i>
+      </td>
+      <td alch-table-cell>{{ formatNamesList(architecture.operating_systems) }}</td>
+    </tr>
+  </tbody>
+</table>
