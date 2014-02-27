@@ -24,10 +24,21 @@ angular.module('Architectures.architectures').factory('Architecture',
     ['$resource', function ($resource) {
         return $resource('/../api/v2/architectures/:id/:action/:action2', {id: '@id'}, {
             get: {method: 'GET', params: {fields: 'full'}},
-            query: {method: 'GET', isArray: false},
+            query: {method: 'GET', isArray: false, url: '/../architectures/api/index'},
             update: {method: 'PUT'},
-            operatingSystems: {method: 'GET', params: {action: 'operating_systems'}},
-            availableOperatingSystems: {method: 'GET', params: {action: 'operating_systems', action2: 'available'}},
+            operatingSystems: {method: 'GET',
+                        transformResponse: function (data) {
+                            var architecture = angular.fromJson(data);
+                            return {results: architecture.operatingsystems};
+                        }
+            },
+            xavailableOperatingSystems: {method: 'GET', params: {action: 'operating_systems', action2: 'available'}},
+            availableOperatingSystems: {method: 'GET', url: '/../api/v2/operatingsystems',
+                        transformResponse: function (data) {
+                            var results = angular.fromJson(data);
+                            return {results: results.results};
+                        }
+            },
             removeOperatingSystems: {method: 'PUT', isArray: false, params: {action: 'operating_systems'}},
             addOperatingSystems: {method: 'POST', isArray: false, params: {action: 'operating_systems'}},
         });
